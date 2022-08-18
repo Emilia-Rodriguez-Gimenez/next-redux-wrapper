@@ -173,10 +173,10 @@ export const createWrapper = <S extends Store>(makeStore: MakeStore<S>, config: 
 
             constructor(props: any, context: any) {
                 super(props, context);
-                this.hydrate(props, context);
+                this.hydrateRoot(props, context);
             }
 
-            hydrate({initialState, initialProps, ...props}: any, context: any) {
+            hydrateRoot({initialState, initialProps, ...props}: any, context: any) {
                 // this happens when App has page with getServerSideProps/getStaticProps, initialState will be dumped twice:
                 // one incomplete and one complete
                 const initialStateFromGSPorGSSR = props?.pageProps?.initialState;
@@ -214,7 +214,7 @@ export const createWrapper = <S extends Store>(makeStore: MakeStore<S>, config: 
                     nextProps?.pageProps?.initialState !== this.props?.pageProps?.initialState ||
                     nextProps?.initialState !== this.props?.initialState
                 ) {
-                    this.hydrate(nextProps, nextContext);
+                    this.hydrateRoot(nextProps, nextContext);
                 }
 
                 return true;
